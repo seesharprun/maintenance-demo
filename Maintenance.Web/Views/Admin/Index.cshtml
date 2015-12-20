@@ -1,0 +1,53 @@
+﻿@model Maintenance.Web.Models.PageContentViewModel
+
+<h1>Admin Page</h1>
+
+@if (ViewBag.Submitted ?? false)
+{
+    <div class="alert alert-dismissible alert-success">
+        <button class="close" type="button" data-dismiss="alert">&close;</button>
+        <h4>Content Saved</h4>
+        <p>
+            Your content has been saved to the web application's settings.
+        </p>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        <legend>Maintenance Page Content</legend>
+    </fieldset>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Top Content Editor</h3>
+        </div>
+        <div class="panel-body">
+            @Html.TextAreaFor(x => x.TopContent, new { id = "topTextArea", rows = 10, cols = 80 })
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Bottom Content Editor</h3>
+        </div>
+        <div class="panel-body">
+            @Html.TextAreaFor(x => x.BottomContent, new { id = "bottomTextArea", rows = 10, cols = 80 })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Save Changes</button>
+    </div>
+}
+
+@section Scripts {
+    <script src="http://cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            CKEDITOR.replace('topTextArea');
+            CKEDITOR.replace('bottomTextArea');
+        });
+    </script>
+}
